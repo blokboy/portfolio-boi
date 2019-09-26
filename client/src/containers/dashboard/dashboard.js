@@ -5,17 +5,6 @@ import { useCookies } from 'react-cookie'
 import Navbar from '../../components/navbar'
 import axios from 'axios'
 
-const LogoutButton = styled.button`
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: red;
-    margin-top: 10px;
-    right: 25px;
-    border-radius: 25px;
-    border: 2px solid black;
-    cursor: pointer;
-`
 
 // eslint-disable-next-line
 import bulma from 'bulma/css/bulma.css'
@@ -23,8 +12,8 @@ import bulma from 'bulma/css/bulma.css'
 
 export default function Dashboard({ ...props }) {
     const [balance, setBalance] = useState(0)
-    const [cookie, setCookie, removeCookie] = useCookies()
-    const { setBackgroundColor } = props
+    const [cookie, removeCookie] = useCookies()
+    const { setBackgroundColor, LogoutButton, logout } = props
 
     const getUserBalance = async () => {
         const { data } = await axios.get('http://localhost:8000/API/users/dashboard', {
@@ -38,12 +27,6 @@ export default function Dashboard({ ...props }) {
         }
     }
 
-    const logout = async (e) => {
-        e.preventDefault()
-        await removeCookie('jwt')
-        props.history.push('/')
-    }
-
     useEffect(() => {
         getUserBalance()
     }, [])
@@ -51,7 +34,12 @@ export default function Dashboard({ ...props }) {
     return (
         <section className="hero is-info is-bold is-fullheight" onClick={setBackgroundColor()}>
             <div className="hero-head">
-                <LogoutButton onClick={(e) => logout(e)} />
+                <LogoutButton onClick={ async (e) => {
+                    e.preventDefault()
+                    await removeCookie('jwt')
+                    props.history.push('/')
+                }}
+                /> 
                 <h5 style={{ 'margin-top' : '60px'}}>
                     Portfolio Boi
                     <br />

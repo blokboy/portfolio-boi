@@ -1,16 +1,32 @@
 import React, { useState } from 'react'
 import { Route } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 import Landing from './pages/landing'
 import Login from './pages/login'
 import Register from './pages/register'
 import Dashboard from './containers/dashboard'
 import Transactions from './containers/transactions'
+import Analytics from './containers/analytics'
+import styled from 'styled-components'
 import './App.css'
 
+const LogoutButton = styled.button`
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: red;
+    margin-top: 10px;
+    right: 25px;
+    border-radius: 25px;
+    border: 2px solid black;
+    cursor: pointer;
+`
 
 
-function App() {
+
+function App({ ...props }) {
   const [index, setIndex] = useState(0)
+  const [cookie, setCookie, removeCookie] = useCookies()
 
   const setBackgroundColor = choice => (e) => {
     e.preventDefault()
@@ -61,6 +77,7 @@ function App() {
                <Dashboard
                 { ...props }
                 setBackgroundColor={setBackgroundColor}
+                LogoutButton={LogoutButton}
                />
              )}
       />
@@ -69,7 +86,17 @@ function App() {
                <Transactions 
                 { ...props }
                 setBackgroundColor={setBackgroundColor}
+                LogoutButton={LogoutButton}
                 />
+             )}
+      />
+      <Route path="/analytics" 
+             render={ props => (
+               <Analytics 
+                { ...props }
+                setBackgroundColor={setBackgroundColor}
+                LogoutButton={LogoutButton}
+               />
              )}
       />
     </div>

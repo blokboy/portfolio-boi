@@ -95,7 +95,10 @@ export default function OrderForm({ ...props }) {
         <section className="hero is-light is-bold" onClick={props.onClick}>
             <ZoomOutMap 
                 className={classes.icon}
-                onClick={() => setOpen(false) }
+                onClick={() => {
+                    setOpen(false) 
+                    window.location.reload()
+                }}
             />
             <div className="hero-body">
             <div className="container">
