@@ -25,7 +25,7 @@ const restricted = async (req, res, next) => {
 const generateToken = async (user) => {
     const jwtPayload = { user: user.id }
     const jwtOptions = {
-        expiresIn: '45m' //45 minutes for testing purposes 
+        expiresIn: '2h' // Upping to 2h to test longer
     }
 
     return jwt.sign(jwtPayload, jwtSecret, jwtOptions)
