@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const SearchBar = styled.input`
     background-color: white;
-    width: 375px;
+    width: 27%;
     height: 45px;
     border: 2px solid black;
     border-radius: 25px;
@@ -24,7 +24,7 @@ const SearchButton = styled.button`
     background: pink;
     border: 2px solid black;
     border-radius: 25px;
-    right: 37.5%
+    right: 37.5%;
     cursor: pointer;
     font-family: PokemonGB;
     outline: none;
